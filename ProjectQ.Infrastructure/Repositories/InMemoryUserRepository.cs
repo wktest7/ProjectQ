@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProjectQ.Infrastructure.Repositories
 {
@@ -16,35 +17,38 @@ namespace ProjectQ.Infrastructure.Repositories
             new User("user3@gmail.com", "user3", "secret", "salt")
         };
 
-        public void Add(User user)
+
+        public async Task<User> GetAsync(Guid id)
+        {
+           return await Task.FromResult(_users.Single(x => x.Id == id));
+        }
+
+        public async Task<User> GetAsync(string email)
+        {
+            return await Task.FromResult(_users.SingleOrDefault(x => x.Email == email.ToLowerInvariant()));
+        }
+
+        public async Task<IEnumerable<User>> GetAllAsync()
+        {
+            return await Task.FromResult(_users);
+        }
+
+        public async Task AddAsync(User user)
         {
             _users.Add(user);
+            await Task.CompletedTask;
         }
 
-        public User Get(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
-           return _users.Single(x => x.Id == id);
-        }
-
-        public User Get(string email)
-        {
-            return _users.Single(x => x.Email == email.ToLowerInvariant());
-        }
-
-        public IEnumerable<User> GetAll()
-        {
-            return _users;
-        }
-
-        public void Remove(Guid id)
-        {
-            var user = Get(id);
+            var user = await GetAsync(id);
             _users.Remove(user);
+            await Task.CompletedTask;
         }
 
-        public void Update(User user)
+        public async Task UpdateAsync(User user)
         {
-            
+            await Task.CompletedTask;
         }
     }
 }

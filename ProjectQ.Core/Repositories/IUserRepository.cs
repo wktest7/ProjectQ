@@ -2,17 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProjectQ.Core.Repositories
 {
     public interface IUserRepository
     {
-        User Get(Guid id);
-        User Get(string email);
-        IEnumerable<User> GetAll();
-        void Add(User user);
-        void Update(User user);
-        void Remove(Guid id);
+        Task<User> GetAsync(Guid UserId);
+        Task<User> GetAsync(string email);
+        Task<IEnumerable<User>> GetAllAsync();
+        Task AddAsync(User user);
+        Task UpdateAsync(User user);
+        Task RemoveAsync(Guid id);
 
     }
 }

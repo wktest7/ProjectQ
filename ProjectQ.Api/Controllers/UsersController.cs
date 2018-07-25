@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProjectQ.Infrastructure.Commands.Users;
 using ProjectQ.Infrastructure.DTO;
 using ProjectQ.Infrastructure.Services;
 
@@ -19,11 +20,17 @@ namespace ProjectQ.Api.Controllers
         }
 
         [HttpGet("{email}")]
-        public UserDTO Get(string email)
+        public async Task<UserDTO> Get(string email)
         {
-            return _userService.Get(email);
+            return await _userService.GetAsync(email);
         }
 
-    
+        [HttpPost("")]
+        public async Task Post([FromBody]CreateUser request)
+        {
+            await _userService.RegisterAsync(request.Email, request.UserName, request.Password);
+        }
+
+
     }
 }

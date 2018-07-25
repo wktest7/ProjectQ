@@ -2,14 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProjectQ.Infrastructure.Services
 {
     public interface IUserService
     {
-        UserDTO Get(string email);
+        Task<UserDTO> GetAsync(string email);
 
-
-        void Register(string email, string username, string password);
+        Task RegisterAsync(string email, string username, string password);
     }
 }

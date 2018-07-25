@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ProjectQ.Core.Repositories;
+using ProjectQ.Infrastructure.Mappers;
 using ProjectQ.Infrastructure.Repositories;
 using ProjectQ.Infrastructure.Services;
 
@@ -28,6 +29,7 @@ namespace ProjectQ.Api
         {
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddSingleton(AutoMapperConfig.Initialize());
 
 
             services.AddMvc();
